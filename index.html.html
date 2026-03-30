@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gabinet Ginekologiczno-Położniczy | dr hab. med. Paweł Rzymski</title>
+    <meta name="description" content="Specjalistyczny gabinet ginekologiczno-położniczy prof. Pawła Rzymskiego w Poznaniu. Leczenie niepłodności, diagnostyka USG, operacje małoinwazyjne.">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <div class="logo">
+            <h1>dr hab. med. Paweł Rzymski</h1>
+            <p>specjalista ginekolog położnik</p>
+        </div>
+        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+        <nav>
+            <ul>
+                <li><a href="#" onclick="showPage('home')">Strona główna</a></li>
+                <li><a href="#" onclick="showPage('oferta')">Oferta</a></li>
+                <li><a href="#" onclick="showPage('aktualnosci')">Aktualności</a></li>
+                <li><a href="#" onclick="showPage('cennik')">Przykładowy cennik</a></li>
+                <li><a href="#" onclick="showPage('kontakt')">Kontakt</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <!-- STRONA GŁÓWNA -->
+    <div id="home" class="page active">
+        <div class="hero">
+            <div class="container">
+                <h1>Specjalistyczny Gabinet<br>Ginekologiczno-Położniczy</h1>
+                <h2>Profesor dr hab. med. Paweł Rzymski</h2>
+                <p>Medycyna jest sztuką, w której pacjent jest najważniejszy.</p>
+            </div>
+        </div>
+
+        <section class="about">
+            <div class="container">
+                <div class="about-content">
+                    <div class="about-text">
+                        <h2>O mnie</h2>
+                        <p><strong>Profesor dr hab. med. Paweł Rzymski</strong> – specjalista ginekolog położnik. Zastępca Koordynatora (Ordynatora) Oddziałów Położniczo-Ginekologicznego II, Diagnostyczno-Obserwacyjnego i Izby Przyjęć Ginekologiczno-Położniczego Szpitala Klinicznego Uniwersytetu Medycznego w Poznaniu, ul. Polna 33. Profesor w Katedrze i Klinice Zdrowia Matki i Dziecka Uniwersytetu Medycznego w Poznaniu.</p>
+                        <p>Lekarzem jestem od 2000 roku, ukończyłem studia na Uniwersytecie Medycznym w Poznaniu. Byłem stypendystą Uniwersytetu w Perugii (Włochy) i Uniwersytetu Humboldta w Berlinie (Niemcy). W swojej pracy zawodowej zajmuję się całością specjalności ginekologii i położnictwa oraz od 2002 roku zajmuję się diagnostyką ultrasonograficzną i biopsyjną piersi.</p>
+                        <p>W swojej pracy w Ginekologiczno-Położniczym Szpitalu Klinicznym przy ul. Polnej 33 w Poznaniu oraz w gabinecie koncentruję się na leczeniu zabiegowym i operacyjnym, ze szczególnym uwzględnieniem technik małoinwazyjnych (laparoskopia, histeroskopia). Moją pasją jest również ultrasonografia, szczególnie USG onkologiczne, prenatalne i elastograficzne piersi.</p>
+                        <p>Zajmuję się kompleksową profilaktyką nowotworów macicy, szyjki macicy, jajników. Ponadto zlecę antykoncepcję w pełnym zakresie, w tym wkładki wewnątrzmaciczne z miedzią, srebrem i hormonalne, także u kobiet nierodzących.</p>
+                        <p>Przez połączenie wielu dziedzin – od endokrynologii ginekologicznej, poprzez diagnostykę i leczenie zabiegowe – zajmuję się kompleksowo leczeniem niepłodności: od diagnostyki wstępnej, przez diagnostykę hormonalną, zaburzenia jajeczkowania, PCO, otyłość, HSG, inseminacje, laparoskopię i histeroskopię, na kwalifikacji do IVF-ET kończąc.</p>
+                        <p><strong>O pełnym zakresie leczenia, w tym rodzaju operacji, przeczytasz na pozostałych stronach.</strong></p>
+                    </div>
+                    <div class="about-image">
+                        <img src="images/doctor.jpg" alt="Dr hab. med. Paweł Rzymski" onerror="this.src='https://via.placeholder.com/400x500?text=Zdjęcie+lekarza'">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- OFERTA / ZAKRES USŁUG -->
+    <div id="oferta" class="page">
+        <div class="container">
+            <h2>Zakres usług</h2>
+            <div class="offer-grid">
+                <div class="offer-card">
+                    <h3>📋 Ginekologia i położnictwo</h3>
+                    <p>Kompleksowa opieka ginekologiczna i położnicza, w tym ciąża fizjologiczna i patologiczna.</p>
+                </div>
+                <div class="offer-card">
+                    <h3>🔬 Diagnostyka USG</h3>
+                    <p>Ultrasonografia onkologiczna, prenatalna, elastografia piersi. Biopsja piersi.</p>
+                </div>
+                <div class="offer-card">
+                    <h3>⚕️ Leczenie zabiegowe</h3>
+                    <p>Operacje małoinwazyjne: laparoskopia, histeroskopia. Leczenie mięśniaków, torbieli, endometriozy.</p>
+                </div>
+                <div class="offer-card">
+                    <h3>🌸 Leczenie niepłodności</h3>
+                    <p>Kompleksowa diagnostyka i leczenie – od hormonów, przez inseminacje, po kwalifikację do IVF.</p>
+                </div>
+                <div class="offer-card">
+                    <h3>🛡️ Profilaktyka nowotworów</h3>
+                    <p>Profilaktyka raka szyjki macicy, jajnika, endometrium. Szczepienia przeciw HPV.</p>
+                </div>
+                <div class="offer-card">
+                    <h3>💊 Antykoncepcja</h3>
+                    <p>Pełen zakres – wkładki hormonalne, miedziane, ze srebrem, także dla kobiet nierodzących.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AKTUALNOŚCI (do edycji przez admin.html) -->
+    <div id="aktualnosci" class="page">
+        <div class="container">
+            <h2>Aktualności</h2>
+            <div id="aktualnosci-lista" class="aktualnosci-grid"></div>
+        </div>
+    </div>
+
+    <!-- PRZYKŁADOWY CENNIK (do edycji przez admin.html) -->
+    <div id="cennik" class="page">
+        <div class="container">
+            <h2>Przykładowy cennik</h2>
+            <div id="cennik-tabela"></div>
+            <p class="note">* Ceny orientacyjne. Ostateczna wycena po konsultacji.</p>
+        </div>
+    </div>
+
+    <!-- KONTAKT -->
+    <div id="kontakt" class="page">
+        <div class="container">
+            <h2>Kontakt</h2>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Gabinet prywatny</h3>
+                    <p><strong>📞 Telefon:</strong> <a href="tel:+48612345678">+48 61 234 56 78</a></p>
+                    <p><strong>📧 Email:</strong> <a href="mailto:gabinet@rzymski.eu">gabinet@rzymski.eu</a></p>
+                    <p><strong>📍 Adres:</strong> ul. Polna 33, 60-535 Poznań<br>(Ginekologiczno-Położniczy Szpital Kliniczny)</p>
+                    <div class="social">
+                        <p><strong>Znajdź nas:</strong></p>
+                        <a href="#" id="fb-link" target="_blank" class="social-icon">Facebook</a>
+                        <a href="#" id="ig-link" target="_blank" class="social-icon">Instagram</a>
+                    </div>
+                </div>
+                <div class="contact-hours">
+                    <h3>Godziny przyjęć</h3>
+                    <p>Poniedziałek – Piątek: <strong>16:00 – 20:00</strong><br>
+                    Sobota: <strong>9:00 – 14:00</strong><br>
+                    Niedziela: <em>po wcześniejszym uzgodnieniu</em></p>
+                    <p><strong>Rejestracja telefoniczna:</strong> pn-pt 10:00-15:00</p>
+                    <p><small>Wizyty w ramach NFZ odbywają się w Szpitalu Klinicznym – prosimy o kontakt z rejestracją szpitala.</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="container">
+        <p>&copy; 2026 Gabinet Ginekologiczno-Położniczy dr hab. med. Paweł Rzymski. Wszelkie prawa zastrzeżone.</p>
+        <p>Strona ma charakter informacyjny i nie zastępuje konsultacji lekarskiej.</p>
+    </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
