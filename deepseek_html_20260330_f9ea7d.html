@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel zarządzania - Rzymski.eu</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .admin-panel {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 12px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        button {
+            background: #c49a6c;
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #a87b4e;
+        }
+        .aktualnosc-item {
+            background: #f5f5f5;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+        }
+        .delete-btn {
+            background: #e74c3c;
+            margin-top: 10px;
+        }
+        .info {
+            background: #d4edda;
+            color: #155724;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-panel">
+        <h2>Panel zarządzania treścią</h2>
+        
+        <div id="komunikat" class="info" style="display:none;"></div>
+        
+        <h3>Dodaj aktualność</h3>
+        <div class="form-group">
+            <label>Tytuł</label>
+            <input type="text" id="tytul" placeholder="Wpisz tytuł">
+        </div>
+        <div class="form-group">
+            <label>Treść</label>
+            <textarea id="tresc" rows="3" placeholder="Wpisz treść aktualności"></textarea>
+        </div>
+        <button onclick="dodajAktualnosc()">Dodaj aktualność</button>
+        
+        <hr style="margin: 30px 0;">
+        
+        <h3>Lista aktualności</h3>
+        <div id="lista-aktualnosci"></div>
+        
+        <hr style="margin: 30px 0;">
+        
+        <h3>Edycja cennika</h3>
+        <div id="lista-cennik"></div>
+        <div class="form-group">
+            <label>Nowa usługa</label>
+            <input type="text" id="nowa-usluga" placeholder="Nazwa usługi">
+        </div>
+        <div class="form-group">
+            <label>Cena</label>
+            <input type="text" id="nowa-cena" placeholder="Cena">
+        </div>
+        <button onclick="dodajUsluge()">Dodaj usługę</button>
+        
+        <hr style="margin: 30px 0;">
+        
+        <h3>Linki do social media</h3>
+        <div class="form-group">
+            <label>Facebook URL</label>
+            <input type="text" id="fb-url" placeholder="https://facebook.com/...">
+        </div>
+        <div class="form-group">
+            <label>Instagram URL</label>
+            <input type="text" id="ig-url" placeholder="https://instagram.com/...">
+        </div>
+        <button onclick="zapiszSocial()">Zapisz linki</button>
+    </div>
+    
+    <script>
+        let aktualnosci = [];
+        let cennik = [];
+        
+        function pobierzDane() {
+            const saved = localStorage.getItem('rzymski_aktualnosci');
+            if (saved) aktualnosci = JSON.parse(saved);
+            else aktualnosci = [
+                { tytul: "Nowe wnętrza już wkrótce!", tresc: "Przygotowujemy dla Państwa odświeżone wnętrza." },
+                { tytul: "Promocja na wiosnę", tresc: "Skorzystaj z wiosennej promocji -10%!" }
+            ];
+            
+            const savedCennik = localStorage.getItem('rzymski_cennik');
+            if (savedCennik) cennik = JSON.parse(savedCennik);
+            else cennik = [
+                { usluga: "Konsultacja", cena: "100 zł" },
+                { usluga: "Usługa podstawowa", cena: "250 zł" }
+            ];
+            
+            wyswietlAktualnosci();
+            wyswietlCennik();
+        }
+        
+        function wyswietlAktualnosci() {
+            const container = document.getElementById('lista-aktualnosci');
+            if (!container) return;
+            
+            if (aktualnosci.length === 0) {
+                container.innerHTML = '<p>Brak aktualności</p>';
+                return;
+            }
+            
+            let html = '';
+            aktualnosci.forEach((akt, index) => {
+                html += `
+                    <div class="aktualnosc-item">
+                        <strong>${akt.tytul}</strong>
+                        <p>${akt.tresc}</p>
+                        <button class="delete-btn" onclick="usunAktualnosc(${index})">Usuń</button>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+        
+        function wyswietlCennik() {
+            const container = document.getElementById('lista-cennik');
+            if (!container) return;
+            
+            if (cennik.length === 0) {
+                container.innerHTML = '<p>Brak usług</p>';
+                return;
+            }
+            
+            let html = '';
+            cennik.forEach((usl, index) => {
+                html += `
+                    <div class="aktualnosc-item">
+                        <strong>${usl.usluga}</strong> - ${usl.cena}
+                        <button class="delete-btn" onclick="usunUsluge(${index})">Usuń</button>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+        
+        function dodajAktualnosc() {
+            const tytul = document.getElementById('tytul').value;
+            const tresc = document.getElementById('tresc').value;
+            
+            if (!tytul || !tresc) {
+                pokazKomunikat('Wypełnij wszystkie pola', 'error');
+                return;
+            }
+            
+            aktualnosci.unshift({ tytul, tresc });
+            localStorage.setItem('rzymski_aktualnosci', JSON.stringify(aktualnosci));
+            
+            document.getElementById('tytul').value = '';
+            document.getElementById('tresc').value = '';
+            
+            wyswietlAktualnosci();
+            pokazKomunikat('Dodano aktualność!', 'success');
+            
+            // Synchronizacja z główną stroną
+            if (window.opener) {
+                window.opener.location.reload();
+            }
+        }
+        
+        function usunAktualnosc(index) {
+            aktualnosci.splice(index, 1);
+            localStorage.setItem('rzymski_aktualnosci', JSON.stringify(aktualnosci));
+            wyswietlAktualnosci();
+            pokazKomunikat('Usunięto aktualność', 'success');
+        }
+        
+        function dodajUsluge() {
+            const usluga = document.getElementById('nowa-usluga').value;
+            const cena = document.getElementById('nowa-cena').value;
+            
+            if (!usluga || !cena) {
+                pokazKomunikat('Wypełnij wszystkie pola', 'error');
+                return;
+            }
+            
+            cennik.push({ usluga, cena });
+            localStorage.setItem('rzymski_cennik', JSON.stringify(cennik));
+            
+            document.getElementById('nowa-usluga').value = '';
+            document.getElementById('nowa-cena').value = '';
+            
+            wyswietlCennik();
+            pokazKomunikat('Dodano usługę!', 'success');
+        }
+        
+        function usunUsluge(index) {
+            cennik.splice(index, 1);
+            localStorage.setItem('rzymski_cennik', JSON.stringify(cennik));
+            wyswietlCennik();
+            pokazKomunikat('Usunięto usługę', 'success');
+        }
+        
+        function zapiszSocial() {
+            const fb = document.getElementById('fb-url').value;
+            const ig = document.getElementById('ig-url').value;
+            
+            localStorage.setItem('rzymski_fb', fb);
+            localStorage.setItem('rzymski_ig', ig);
+            
+            pokazKomunikat('Zapisano linki do social media!', 'success');
+        }
+        
+        function pokazKomunikat(msg, type) {
+            const kom = document.getElementById('komunikat');
+            kom.textContent = msg;
+            kom.style.display = 'block';
+            kom.style.backgroundColor = type === 'error' ? '#f8d7da' : '#d4edda';
+            kom.style.color = type === 'error' ? '#721c24' : '#155724';
+            
+            setTimeout(() => {
+                kom.style.display = 'none';
+            }, 3000);
+        }
+        
+        pobierzDane();
+        
+        // Wczytaj zapisane linki social
+        document.getElementById('fb-url').value = localStorage.getItem('rzymski_fb') || '';
+        document.getElementById('ig-url').value = localStorage.getItem('rzymski_ig') || '';
+    </script>
+</body>
+</html>
